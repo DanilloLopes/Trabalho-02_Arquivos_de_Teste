@@ -7,13 +7,13 @@ programa
 	
 	funcao inicio()
 	{
-		se(ler_titulo_ou_nao == 0)
+		se(ler_titulo_ou_nao != 1)
 		{
-		titulo_menu()
+			titulo_menu()
 		}
 		senao
 		{
-		menu()
+			menu()
 		}
 		cadeia opcao_escolhida
 		leia(opcao_escolhida)
@@ -21,10 +21,8 @@ programa
 	}
 	funcao titulo_menu()
 	{
-		escreva("--------------------------------------------\n")
-	 	escreva("---------SISTEMA MULTITAREFAS DO RH---------\n")
-	 	escreva("--------------------------------------------")
-	 	escreva("\n\n\n")
+	 	escreva("                SISTEMA MULTITAREFAS DO RH\n")
+	 	escreva("\n\n")
 	 	inteiro horario
 		horario = c.hora_atual(falso)
 	 	se(horario >= 6 e horario < 12)
@@ -42,30 +40,35 @@ programa
 	 		escreva("Boa noite, seja bem vindo ao sistema multitarefas!")
 	 		escreva("\n")
 	 	}
+	 	
 	 	escreva("Selecione uma opção abaixo para prosseguir:")
 	 	escreva("\n\n")
 	 	menu()
 	}
 	funcao menu()
 	{
-	 	escreva("1  - Simulador de desconto salarial do INSS;\n")
-	 	escreva("2  - Simulador de bonificação salarial das férias;\n")
-	 	escreva("3  - \n")
-	 	escreva("4  - \n")
-	 	escreva("5  - \n")
-	 	escreva("6  - \n")
-	 	escreva("7  - \n")
-	 	escreva("8  - \n")
-	 	escreva("9  - \n")
-	 	escreva("10 - \n")
-	 	escreva("11 - \n")
-	 	escreva("12 - \n")
-	 	escreva("13 - \n")
-	 	escreva("14 - Finalizar programa.\n")
+		escreva("|------------------------------------------------------------|\n")
+		escreva("|                           MENU                             |\n")
+		escreva("|------------------------------------------------------------|\n")
+		escreva("|[1]  - Simulador de desconto salarial do INSS               |\n")
+	 	escreva("|[2]  - Simulador de bonificação salarial das férias         |\n")
+	 	escreva("|[3]  -                                                      |\n")
+	 	escreva("|[4]  -                                                      |\n")
+	 	escreva("|[5]  -                                                      |\n")
+	 	escreva("|[6]  -                                                      |\n")
+	 	escreva("|[7]  -                                                      |\n")
+	 	escreva("|[8]  -                                                      |\n")
+	 	escreva("|[9]  -                                                      |\n")
+	 	escreva("|[10] -                                                      |\n")
+	 	escreva("|[11] -                                                      |\n")
+	 	escreva("|[12] -                                                      |\n")
+	 	escreva("|[13] -                                                      |\n")
+	 	escreva("|[14] - Finalizar programa.                                  |\n")
+	 	escreva("|------------------------------------------------------------|")
 	 	escreva("\n\n")
 	 	escreva("Opção escolhida: ")
 	}
-	funcao seletor_de_programa(cadeia opcao_escolhida)
+	 funcao seletor_de_programa(cadeia opcao_escolhida)
 	{
 		se(opcao_escolhida == "1")
 		{
@@ -133,6 +136,7 @@ programa
 			escreva("\n\n")
 			inicio()
 		}
+		
 	}
 }
 /* $$$ Portugol Studio $$$ 
@@ -140,7 +144,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 2390; 
+ * @POSICAO-CURSOR = 797; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
