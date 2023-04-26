@@ -14,7 +14,8 @@ programa
 	 	escreva("\n\n")
 	}
 	funcao multa_do_FGTS()
-	{    real valor_fgts = 0.0, valor_multa_fgts = 0.0
+	{    
+		real valor_fgts = 0.0, valor_multa_fgts = 0.0
 		const real porcentagem_multa_por_acordo = 0.20
 		const real porcentagem_multa_sem_acordo = 0.40
 		cadeia sim_ou_nao
