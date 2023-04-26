@@ -80,7 +80,16 @@ programa
 	 			quantidade_de_parcelas = 5
 	 		}
 	 	}
-	 
+	 	escreva("\n\n")
+	 	tracinho_texto()
+	 	se(pode_receber_ou_nao)
+	 	{
+	 		escreva("Voc")
+	 	}
+	 	senao
+	 	{
+	 		
+	 	}
 	}
 	funcao tracinho_texto()
 	{
@@ -95,9 +104,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 94; 
+ * @POSICAO-CURSOR = 1973; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {quantidade_de_solicitacoes, 15, 11, 26}-{meses_trabalhados, 18, 11, 17}-{quantidade_de_parcelas, 20, 11, 22}-{pode_receber_ou_nao, 21, 10, 19};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
