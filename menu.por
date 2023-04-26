@@ -505,7 +505,7 @@ programa
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
  * @POSICAO-CURSOR = 13394; 
- * @DOBRAMENTO-CODIGO = [23, 50, 94, 164, 198, 238, 284, 319, 359, 388, 394, 493];
+ * @DOBRAMENTO-CODIGO = [23, 50, 164, 198, 238, 284, 319, 359, 388, 394, 493];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
