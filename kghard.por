@@ -806,7 +806,6 @@ programa
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
  * @POSICAO-CURSOR = 22915; 
- * @DOBRAMENTO-CODIGO = [23, 50, 94, 164, 198, 284, 319, 359, 388, 394, 401, 493, 500, 612, 619, 676, 682, 689, 794];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
