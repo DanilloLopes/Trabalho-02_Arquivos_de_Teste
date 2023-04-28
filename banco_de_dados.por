@@ -1,5 +1,6 @@
 programa
 {
+	inclua biblioteca ServicosWeb --> sw
 	inclua biblioteca Arquivos --> a
 	
 	funcao inicio()
@@ -10,7 +11,7 @@ programa
 	{
 		cadeia nome
 		inteiro arquivo
-		escreva("Digite abaixo as informações para cadastrar o colaborador: ")
+		escreva("Digite abaixo as informações para cadastrar o colaborador.\n")
 		escreva("Nome: ")
 		leia(nome)
 		escreva("Telefone: ")
@@ -23,6 +24,10 @@ programa
 		cadeia email
 		leia(email)
 		escreva("CEP: ")
+		cadeia cep
+		leia(cep)
+		cadeia endereco 
+		endereco = sw.obter_dados("https://viacep.com.br/ws/"+ cep +"/json/")
 		logico existe_arquivo_ou_nao
 		existe_arquivo_ou_nao = a.arquivo_existe("banco de dados.txt")
 		se(existe_arquivo_ou_nao)
@@ -44,9 +49,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 439; 
+ * @POSICAO-CURSOR = 594; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {existe_arquivo_ou_nao, 26, 9, 21};
+ * @SIMBOLOS-INSPECIONADOS = {cep, 27, 9, 3}-{existe_arquivo_ou_nao, 31, 9, 21}-{endereco, 29, 9, 8};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
