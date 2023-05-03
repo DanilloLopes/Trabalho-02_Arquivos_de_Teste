@@ -1,12 +1,14 @@
 programa
 {
+	
 	inclua biblioteca Util --> ut
 	inclua biblioteca Matematica --> m
 	inclua biblioteca Calendario --> c
 	inclua biblioteca Texto --> txt
-
+	inclua biblioteca Tipos --> tp
+	inclua biblioteca ServicosWeb --> sw
+	inclua biblioteca Arquivos --> a
 	inteiro ler_titulo_ou_nao = 0 
-	
 	funcao inicio()
 	{
 		se(ler_titulo_ou_nao != 1)
@@ -94,6 +96,7 @@ programa
 	}
 	funcao seletor_de_programa(cadeia opcao_escolhida)
 	{
+		ler_titulo_ou_nao = 0
 		se(opcao_escolhida == "1")
 		{
 			calcaladora_so_do_inss()
@@ -140,11 +143,11 @@ programa
 		}
 		senao se(opcao_escolhida == "12")
 		{
-			
+			calcaladora_so_do_adicional_noturno()
 		}
 		senao se(opcao_escolhida == "13")
 		{
-			
+			banco_de_dados()
 		}
 		senao se(opcao_escolhida == "14")
 		{
@@ -160,20 +163,21 @@ programa
 			escreva("\n\n")
 			inicio()
 		}
-		
 	}
 	funcao calcaladora_so_do_inss()
-	{
+	{	
 		limpa()
-		real salario_bruto, inss
 		escreva("              SIMULADOR DE DESCONTO DE INSS")
 	 	escreva("\n\n")
 	 	tracinho_texto()
 	 	escreva("\n\n")
-	 	escreva("Insira o valor do salario bruto: ")
-	 	leia(salario_bruto)
-	 	escreva("\n\n")
-	 	inss = equacao_inss(salario_bruto)
+		cadeia valor_para_verificar = ""
+		logico numero_ou_nao = falso
+		const cadeia TITULO = "             SIMULADOR DE DESCONTO DE INSS"
+		valor_para_verificar = recebe_salario_bruto(numero_ou_nao, valor_para_verificar, TITULO)
+		real salario_bruto = tp.cadeia_para_real(valor_para_verificar)
+		escreva("\n")
+		real inss = equacao_inss(salario_bruto)
 	 	inss = m.arredondar(inss, 2)
 	 	real salario_liquido
 	 	salario_liquido = salario_bruto - inss
@@ -239,24 +243,28 @@ programa
 	funcao simulador_bon_ferias()
 	{
 	 	limpa()
-	 	real salario_bruto, bonificacao_ferias, inss, total_de_proventos, total_de_descontos, salario_liquido
-	 	escreva("              SIMULADOR DE BONIFICAÇÃO DE FÉRIAS")
+		escreva("              SIMULADOR BONIFICAÇÂO FERIAS")
 	 	escreva("\n\n")
 	 	tracinho_texto()
 	 	escreva("\n\n")
-	 	escreva("Insira o valor do salario bruto: ")
-	 	leia(salario_bruto)
-		bonificacao_ferias = salario_bruto/3
+		cadeia valor_para_verificar = ""
+		logico numero_ou_nao = falso
+		const cadeia TITULO = "             SIMULADOR BONIFICAÇÂO FERIAS"
+		valor_para_verificar = recebe_salario_bruto(numero_ou_nao, valor_para_verificar, TITULO)
+		real salario_bruto = tp.cadeia_para_real(valor_para_verificar)
+		escreva("\n")
+	 	
+		real bonificacao_ferias = salario_bruto/3
 		bonificacao_ferias = m.arredondar(bonificacao_ferias, 2)
-		total_de_proventos = salario_bruto + bonificacao_ferias
+		real total_de_proventos = salario_bruto + bonificacao_ferias
 		real irrf
 	 	irrf = equacao_imposto_de_renda(total_de_proventos)
 	 	irrf = m.arredondar(irrf, 2)
-	 	inss = equacao_inss(total_de_proventos)
+	 	real inss = equacao_inss(total_de_proventos)
 		inss = m.arredondar(inss, 2)
-	 	total_de_descontos = inss + irrf
+	 	real total_de_descontos = inss + irrf
 	 	total_de_descontos = m.arredondar(total_de_descontos, 2)
-	 	salario_liquido = total_de_proventos - total_de_descontos
+	 	real salario_liquido = total_de_proventos - total_de_descontos
 	 	salario_liquido = m.arredondar(salario_liquido, 2)
 		escreva("\n")
 	 	escreva("|")
@@ -289,9 +297,12 @@ programa
 	 	escreva("\n\n")
 	 	tracinho_texto()
 	 	escreva("\n\n")
-		real salario_bruto
-	 	escreva("Insira o valor do salario bruto: ")
-	 	leia(salario_bruto)
+		cadeia valor_para_verificar = ""
+		logico numero_ou_nao = falso
+		const cadeia TITULO = "             SIMULADOR DE DESCONTO DE IRRF"
+		valor_para_verificar = recebe_salario_bruto(numero_ou_nao, valor_para_verificar, TITULO)
+		real salario_bruto = tp.cadeia_para_real(valor_para_verificar)
+		escreva("\n")
 	 	real irrf
 	 	irrf = equacao_imposto_de_renda(salario_bruto)
 	 	irrf = m.arredondar(irrf, 2)
@@ -364,12 +375,17 @@ programa
 	 	escreva("\n\n")
 	 	tracinho_texto()
 	 	escreva("\n\n")
-		escreva("Insira o valor do sálario bruto: ")
+		cadeia valor_para_verificar = ""
 		real salario_bruto
-		leia(salario_bruto)
+		logico numero_ou_nao = falso
+		const cadeia TITULO = "           SIMULADOR DE DESCONTO DE DEPÓSITO FGTS"
+		valor_para_verificar = recebe_salario_bruto(numero_ou_nao, valor_para_verificar, TITULO)
+		escreva("\n")
+		salario_bruto = tp.cadeia_para_real(valor_para_verificar)
 		real fgts
 		fgts = equacao_fgts(salario_bruto)
 		fgts = m.arredondar(fgts, 2)
+		limpa()
 		escreva("\n")
 		escreva("|")
 		tracinho_texto()
@@ -392,7 +408,7 @@ programa
 		valor_fgts = salario_bruto * 0.08
 		retorne valor_fgts
 	}
-	funcao titulo_fgts()
+	funcao titulo_multa_fgts()
 	{
 		escreva("              SIMULADOR DE MULTA FGTS")
 	 	escreva("\n\n")
@@ -403,62 +419,46 @@ programa
 	{   
 		limpa()
 		real valor_fgts = 0.0, valor_multa_fgts = 0.0
+		cadeia valor_para_verificar = ""
 		const real porcentagem_multa_por_acordo = 0.20
 		const real porcentagem_multa_sem_acordo = 0.40
-		cadeia sim_ou_nao
-		titulo_fgts()
+		const cadeia TITULO = "              SIMULADOR DE MULTA FGTS"
+		titulo_multa_fgts()
 	 	inteiro i = 0
-	 	enquanto(nao((i != 1 e i == 2) ou (i == 1 e i != 2)))
-	 	{
-	 		escreva("O colaborador dispensado foi demitido por justa causa?\n")
-	 		escreva("[S] - Sim / [N] - Não\n")
-	 		escreva("Resposta: ")
-	 		leia(sim_ou_nao)
-	 		sim_ou_nao = txt.caixa_alta(sim_ou_nao)
-		 	se(sim_ou_nao == "S")
+	 	cadeia perunta_s_ou_n = "O colaborador dispensado foi demitido por justa causa?"
+	 	cadeia sim_ou_nao = testador_sim_ou_nao(perunta_s_ou_n, TITULO)
+	 	logico numero_ou_nao = falso
+	 	se(sim_ou_nao == "S")
 		 	{
 				i++
 		 	}
-		 	senao se(sim_ou_nao == "N")
-		 	{
-		 		escreva("\n\n")
-		 		escreva("Digite o valor total do FGTS: ")
-				leia(valor_fgts)
-				escreva("\n\n")
-				enquanto (i != 2)
-				{
-					escreva("Foi feito um acordo para dispensa com a empresa?\n")
-					escreva("[S] - Sim / [N] - Não\n")
-					escreva("Resposta: ")
-					leia(sim_ou_nao)
-					sim_ou_nao = txt.caixa_alta(sim_ou_nao)
-					se(sim_ou_nao == "S")
-		 			{
-						valor_multa_fgts = valor_fgts * porcentagem_multa_por_acordo
-						i = 2
-		 			}
-		 			senao se(sim_ou_nao == "N")
-		 			{
-		 				valor_multa_fgts = valor_fgts * porcentagem_multa_sem_acordo
-		 				i = 2
-		 			}
-		 			senao
-		 			{
-		 				limpa()
-		 				titulo_fgts()
-		 				escreva("ERRO!\n")
-						escreva("O valor \"", sim_ou_nao ,"\" não é uma opção válida!\n\n")
-		 			}
-				}
-		 	}
 		 	senao
 		 	{
-		 		limpa()
-		 		titulo_fgts()
-		 		escreva("ERRO!\n")
-				escreva("O valor \"", sim_ou_nao ,"\" não é uma opção válida!\n\n")
+				enquanto(numero_ou_nao == falso)
+				{
+					escreva("\n\n")
+		 			escreva("Digite o valor total do FGTS: ")
+					leia(valor_para_verificar)
+					numero_ou_nao = testador_de_numero(valor_para_verificar)
+					se(numero_ou_nao == falso)
+					{
+						limpa()
+						titulo_multa_fgts()
+						mensagem_erro(valor_para_verificar)
+					}
+				}
+				valor_fgts = tp.cadeia_para_real(valor_para_verificar)
+				perunta_s_ou_n = "Foi feito um acordo para dispensa com a empresa?"
+				sim_ou_nao = testador_sim_ou_nao(perunta_s_ou_n, TITULO)
+				se(sim_ou_nao == "S")
+		 		{
+					valor_multa_fgts = valor_fgts * porcentagem_multa_por_acordo
+		 		}
+		 		senao
+		 		{
+		 			valor_multa_fgts = valor_fgts * porcentagem_multa_sem_acordo
+		 		}
 		 	}
-	 	}
 	 	real recisao = 0.0
 	 	valor_fgts =m.arredondar(valor_fgts, 2)
 	 	valor_multa_fgts = m.arredondar(valor_multa_fgts, 2)
@@ -473,7 +473,7 @@ programa
 	 	senao
 	 	{
 		 	limpa()
-		 	titulo_fgts()
+		 	titulo_multa_fgts()
 		 	escreva("|")
 			tracinho_texto()
 			escreva("|\n")
@@ -491,6 +491,57 @@ programa
 			escreva("|")
 	 	}
 	}
+	funcao banco_de_dados()
+	{
+		escreva("        CADASTRO DE FUNCIONÁRIOS")
+	 	escreva("\n\n")
+	 	tracinho_texto()
+	 	escreva("\n\n")
+		cadeia nome
+		inteiro arquivo
+		escreva("Digite abaixo as informações para cadastrar o colaborador.\n")
+		escreva("Nome: ")
+		leia(nome)
+		escreva("Telefone: ")
+		cadeia telefone
+		leia(telefone)
+		escreva("Idade:  ")
+		cadeia idade
+		leia(idade)
+		escreva("Email: ")
+		cadeia email
+		leia(email)
+		escreva("CEP: ")
+		cadeia cep
+		leia(cep)
+		cadeia endereco_bruto 
+		endereco_bruto = sw.obter_dados("https://viacep.com.br/ws/"+ cep +"/json/")
+		inteiro numero_de_caracteres =  txt.numero_caracteres(endereco_bruto)
+		cadeia endereco = txt.extrair_subtexto(endereco_bruto, 22, numero_de_caracteres)
+		inteiro ocorrencia = 0
+		para(inteiro i = 0; i < 5; i++)
+		{
+			
+			ocorrencia = txt.posicao_texto(",", endereco, ocorrencia)
+			ocorrencia++
+		}
+		ocorrencia--
+		endereco = txt.extrair_subtexto(endereco, 0, ocorrencia)
+		endereco = txt.substituir(endereco, "\"", "")
+		logico existe_arquivo_ou_nao = a.arquivo_existe("banco de dados.txt")
+		se(existe_arquivo_ou_nao)
+		{
+			arquivo = a.abrir_arquivo("banco de dados.txt", a.MODO_ACRESCENTAR)
+			a.escrever_linha("NOME: "+nome+", Telefone: "+telefone+", Email: "+email+", IDADE: "+idade+", Endereço: "+endereco, arquivo)
+			a.fechar_arquivo(arquivo)	
+		}
+		senao
+		{
+			arquivo = a.abrir_arquivo("banco de dados.txt", a.MODO_ESCRITA)
+			a.escrever_linha("NOME: "+nome+"; Telefone: "+telefone+"; Email: "+email+"; IDADE: "+idade+"; Endereço: "+endereco, arquivo)
+			a.fechar_arquivo(arquivo)
+		}
+	}
 	funcao titulo_seguro_desemprego()
 	{
 		escreva("        SIMULADOR DE DIREITO AO SEGURO-DESEMPREGO")
@@ -502,39 +553,60 @@ programa
 	{
 		limpa()
 		titulo_seguro_desemprego()
-	 	escreva("O requerente foi dispensado foi demitido por justa causa?\n")
-	 	escreva("[S] - Sim / [N] - Não\n")
-	 	escreva("Resposta: ")
-	 	cadeia sim_ou_nao
-	 	leia(sim_ou_nao)
-	 	sim_ou_nao = txt.caixa_alta(sim_ou_nao)
-	 	enquanto(nao((sim_ou_nao != "S" e sim_ou_nao == "N") ou (sim_ou_nao == "S" e sim_ou_nao != "N")))
-	 	{
-	 	limpa()
-	 	titulo_seguro_desemprego()
-	 	escreva("ERRO!\n")
-		escreva("O valor \"", sim_ou_nao ,"\" não é uma opção válida!\n")
-		escreva("Por favor, digite uma opção de válida para prosseguir.\n\n")
-	 	escreva("O requerente foi dispensado foi demitido por justa causa?\n")
-	 	escreva("[S] - Sim / [N] - Não\n")
-	 	escreva("Resposta: ")
-	 	leia(sim_ou_nao)
-	 	sim_ou_nao = txt.caixa_alta(sim_ou_nao)
-	 	}
+	 	const cadeia TITULO = "               SIMULADOR DE DIREITO AO SEGURO-DESEMPREGO"
+	 	cadeia perunta_s_ou_n = "O requerente foi dispensado foi demitido por justa causa?"
+	 	cadeia sim_ou_nao = testador_sim_ou_nao(perunta_s_ou_n, TITULO)
 	 	logico pode_receber_ou_nao
 	 	inteiro quantidade_de_parcelas = 0
+	 	logico numero_ou_nao = falso
+	 	cadeia valor_para_verificar = ""
 	 	se(sim_ou_nao == "S")
 	 	{
 		 	pode_receber_ou_nao = falso
 	 	}
 	 	senao
 	 	{
-	 		escreva("Digite quantas vezes o seguro-desemprego já foi solicitado: ")
-		 	inteiro quantidade_de_solicitacoes
-		 	leia(quantidade_de_solicitacoes)
-		 	escreva("Digite a quantidade de meses que trabalhou: ")
-		 	inteiro meses_trabalhados
-		 	leia(meses_trabalhados)
+	 		
+		 	
+		 	enquanto(numero_ou_nao == falso)
+			{
+				escreva("\n\n")
+		 		escreva("Digite quantas vezes o seguro-desemprego já foi solicitado: ")
+				leia(valor_para_verificar)
+				numero_ou_nao = testador_de_numero(valor_para_verificar)
+				se(numero_ou_nao == falso)
+				{
+					limpa()
+					titulo_seguro_desemprego()
+					mensagem_erro(valor_para_verificar)
+				}
+			}
+			inteiro quantidade_de_solicitacoes = tp.cadeia_para_inteiro(valor_para_verificar, 10)
+			inteiro meses_trabalhados = 0
+			faca
+			{
+				numero_ou_nao = falso
+				se(meses_trabalhados > 12)
+				{
+					limpa()
+					titulo_seguro_desemprego()
+					mensagem_erro(valor_para_verificar)
+				}
+				enquanto(numero_ou_nao == falso)
+				{
+					escreva("\n\n")
+			 		escreva("Digite a quantidade de meses que trabalhou: ")
+					leia(valor_para_verificar)
+					numero_ou_nao = testador_de_numero(valor_para_verificar)
+					se(numero_ou_nao == falso)
+					{
+						limpa()
+						titulo_seguro_desemprego()
+						mensagem_erro(valor_para_verificar)
+					}
+				}
+				meses_trabalhados = tp.cadeia_para_inteiro(valor_para_verificar, 10)
+			}enquanto(meses_trabalhados > 12)
 		 	se(quantidade_de_solicitacoes == 0)
 		 	{
 		 		se(meses_trabalhados < 12)
@@ -792,6 +864,68 @@ programa
 	 		escreva("O requerinte não tem direito de receber o PIS.")
 	 	}
 	}
+	funcao logico testador_de_numero(cadeia teste_de_valor)
+	{
+		logico retorno_de_valor
+		inteiro auxiliar
+		auxiliar = txt.posicao_texto(".", teste_de_valor, 0)
+		se(auxiliar != -1)
+		{
+			retorno_de_valor = tp.cadeia_e_real(teste_de_valor)
+		}
+		senao
+		{
+			retorno_de_valor = tp.cadeia_e_inteiro(teste_de_valor, 10)
+		}
+		retorne retorno_de_valor
+	}
+	funcao cadeia recebe_salario_bruto(logico numero_ou_nao, cadeia valor_para_verificar, cadeia nome_do_simulador_caso_erro)
+	{
+		enquanto(numero_ou_nao == falso)
+		{
+			escreva("Digite o valor do salário bruto: ")
+			leia(valor_para_verificar)
+			numero_ou_nao = testador_de_numero(valor_para_verificar)
+			se(numero_ou_nao == falso)
+			{
+				limpa()
+				escreva(nome_do_simulador_caso_erro)
+				escreva("\n\n")
+				tracinho_texto()
+				escreva("\n\n")
+				mensagem_erro(valor_para_verificar)
+			}
+		}
+		retorne valor_para_verificar
+	}
+	funcao mensagem_erro(cadeia texto)
+	{
+		escreva("ERRO!\n")
+		escreva("O valor \"", texto ,"\" não é um valor válida!\n")	
+		escreva("Digite um valor válido para prosseguir.\n\n")
+	}
+	funcao cadeia testador_sim_ou_nao(cadeia pergunta_que_a_funcao_vai_fazer, cadeia nome_do_simulador_caso_erro)
+	{
+		cadeia sim_ou_nao = ""
+		enquanto(nao((sim_ou_nao != "S" e sim_ou_nao == "N") ou (sim_ou_nao == "S" e sim_ou_nao != "N")))
+	 	{
+	 		escreva(pergunta_que_a_funcao_vai_fazer)
+	 		escreva("\n[S] - Sim / [N] - Não\n")
+	 		escreva("Resultado: ")
+	 		leia(sim_ou_nao)
+	 		sim_ou_nao = txt.caixa_alta(sim_ou_nao)
+	 		se(nao((sim_ou_nao != "S" e sim_ou_nao == "N") ou (sim_ou_nao == "S" e sim_ou_nao != "N")))
+	 		{
+	 			limpa()
+	 			escreva(nome_do_simulador_caso_erro)
+				escreva("\n\n")
+				tracinho_texto()
+				escreva("\n\n")
+	 			mensagem_erro(sim_ou_nao)	
+	 		}
+	 	}
+	 	retorne sim_ou_nao
+	}
 	funcao tracinho_texto()
 	{
 		para(inteiro i = 1; i <= 60; i++)
@@ -799,14 +933,196 @@ programa
 		  escreva ("-")
 		}
 	}
+	funcao titulo_periculosidade()
+	{
+		escreva("           SIMULADOR DE ADICIONAL PERICULOSIDADE")
+	 	escreva("\n\n")
+	 	tracinho_texto()
+	 	escreva("\n\n")
+	}
+	funcao simulador_periculosidade()
+	{	
+		cadeia valor_para_verificar = ""
+		real salario_bruto
+		logico numero_ou_nao = falso
+		titulo_periculosidade()
+		const cadeia TITULO = "           SIMULADOR DE ADICIONAL PERICULOSIDADE"
+		valor_para_verificar = recebe_salario_bruto(numero_ou_nao, valor_para_verificar, TITULO)
+		escreva("\n")
+		salario_bruto = tp.cadeia_para_real(valor_para_verificar)
+		numero_ou_nao = falso
+		enquanto(numero_ou_nao == falso)
+		{
+			escreva("Digite a quantidade de horas trabalhadas no mês: ")
+			leia(valor_para_verificar)
+			numero_ou_nao = testador_de_numero(valor_para_verificar)
+			se(numero_ou_nao == falso)
+			{
+				limpa()
+				titulo_periculosidade()
+				mensagem_erro(valor_para_verificar)
+			}
+		}
+		escreva("\n")
+		real horas_trabalhadas_mes = tp.cadeia_para_real(valor_para_verificar)
+		numero_ou_nao = falso
+		enquanto(numero_ou_nao == falso)
+		{
+			escreva("Digite a quantidade de horas extras trabalhadas no mês: ")
+			leia(valor_para_verificar)
+			numero_ou_nao = testador_de_numero(valor_para_verificar)
+			se(numero_ou_nao == falso)
+			{
+				limpa()
+				titulo_periculosidade()
+				mensagem_erro(valor_para_verificar)
+			}
+		}
+		escreva("\n")
+		real horas_extras_trabalhadas = tp.cadeia_para_real(valor_para_verificar)
+		const cadeia  PERGUNTA_QUE_A_FUNCAO_VAI_FAZER = "O colaborador é eletricitário?"
+		cadeia sim_ou_nao = testador_sim_ou_nao(PERGUNTA_QUE_A_FUNCAO_VAI_FAZER, TITULO)
+		real periculosidade
+		escreva("\n\n")
+	 	periculosidade = equacao_periculosidade(salario_bruto,horas_trabalhadas_mes, horas_extras_trabalhadas,  sim_ou_nao)
+	 	periculosidade = m.arredondar(periculosidade, 2)
+	 	real salario_liquido
+	 	salario_liquido = salario_bruto +  periculosidade
+	 	limpa()
+	 	titulo_periculosidade()
+	 	escreva("\n|")
+		tracinho_texto()
+		escreva("|\n")
+		escreva("|			RESULTADO			     |\n")
+		escreva("|")
+		tracinho_texto()
+		escreva("|\n")
+		escreva("  PROVENTOS:\n")
+	 	escreva("	Sálario bruto:			",salario_bruto,"\n")
+	 	escreva("	Adic. de Periculosidade:	", periculosidade,"\n\n")
+	 	escreva("  TOTAL:\n")
+	 	escreva("	Sálario Líquido*:		",salario_liquido,"\n")
+	 	escreva("|\n")
+		tracinho_texto()
+		escreva("|")
+	}
+	funcao real equacao_periculosidade(real salario_bruto, real horas_trabalhadas_mes,real horas_extras_trabalhdas, cadeia sim_ou_nao)
+	{	
+		real valor_por_hora_extra, total_salario_e_hora_extra, valor_por_hora_com_periculosidade, valor_total_adicional_periculosidade, valor_total_hora_extra_periculosidade =0.0, valor_por_hora
+		caracter s_ou_n_periculosidade
+		se(sim_ou_nao == "S")
+		{		
+			valor_por_hora = salario_bruto/horas_trabalhadas_mes
+			valor_por_hora_com_periculosidade = 0.3 * (valor_por_hora + (valor_por_hora * 0.5))
+			valor_total_adicional_periculosidade = valor_por_hora_com_periculosidade * horas_extras_trabalhdas
+			valor_por_hora_extra = valor_por_hora * 0.5
+			valor_por_hora_extra = valor_por_hora_extra * horas_extras_trabalhdas
+			valor_total_hora_extra_periculosidade = valor_total_adicional_periculosidade + valor_por_hora_extra
+			salario_bruto = salario_bruto + (salario_bruto * 0.3)
+			valor_total_hora_extra_periculosidade = salario_bruto 
+		}
+		senao
+		{		
+			valor_por_hora = salario_bruto/horas_trabalhadas_mes
+			valor_por_hora_com_periculosidade = valor_por_hora * 0.3
+			valor_total_adicional_periculosidade = valor_por_hora_com_periculosidade * horas_extras_trabalhdas	
+			valor_por_hora_extra = valor_por_hora * 0.5
+			valor_por_hora_extra = valor_por_hora_extra * horas_extras_trabalhdas
+			valor_total_hora_extra_periculosidade = valor_total_adicional_periculosidade + valor_por_hora_extra
+			salario_bruto = salario_bruto + (salario_bruto * 0.3)
+			valor_total_hora_extra_periculosidade = salario_bruto 
+		}
+		retorne valor_total_hora_extra_periculosidade 
+	}
+     funcao calcaladora_so_do_adicional_noturno()
+     
+	{	
+		real salario_bruto =0.0, horas_trabalhadas_mes, valor_por_hora, horas_noturnas_trabalhadas,noturno
+		caracter s_ou_n_eletricitario
+		escreva("              SIMULADOR DE ADICIONAL NOTURNO")
+	 	escreva("\n\n")
+	 	escreva("-------------------------------------------------------------\n\n")
+	 	escreva("Insira o valor do salario bruto para calcular o adicional noturno: ")
+	 	leia(salario_bruto)
+	 	escreva("\n\n")
+	 	escreva("Insira a quantidade de horas trabalhadas no mês: ")
+	 	leia(horas_trabalhadas_mes)
+	 	escreva("\n\n")
+	 	escreva("Insira a quantidade de horas noturnas trabalhadas no mes: ")
+	 	leia(horas_noturnas_trabalhadas)
+	 	escreva("\n\n")
+	 	noturno = equacao_adicional_noturno(salario_bruto, horas_trabalhadas_mes, horas_noturnas_trabalhadas)
+	 	noturno = m.arredondar(noturno, 2)
+	 	real salario_liquido
+	 	salario_liquido = salario_bruto + noturno
+	 	escreva("|------------------------------------------------------------|\n")
+		escreva("|			RESULTADO			     |\n")
+		escreva("|------------------------------------------------------------|\n")
+		escreva("  PROVENTOS:\n")
+	 	escreva("	Sálario bruto:			",salario_bruto,"\n\n")
+	 	escreva("  DESCONTOS:\n")
+	 	escreva("	ADICIONAL HORA NOTURNA:				",noturno,"\n\n")
+	 	escreva(" TOTAL:\n")
+	 	escreva("	Sálario Líquido*:		",salario_liquido,"\n")
+	 	escreva("|------------------------------------------------------------|")	
+	}
+	funcao real equacao_adicional_noturno(real salario_bruto, real horas_trabalhadas_mes,real horas_noturnas_trabalhadas)	
+	{
+		real  valor_da_hora, acrecimo_hora_noturna_trabalhada , valor_adicional_noturno ,conversao_horas_em_minutos 
+		conversao_horas_em_minutos = horas_noturnas_trabalhadas * 60
+		horas_noturnas_trabalhadas = conversao_horas_em_minutos / 52.5
+		valor_da_hora = salario_bruto/horas_trabalhadas_mes
+          acrecimo_hora_noturna_trabalhada = valor_da_hora * 0.2  
+   		valor_adicional_noturno = horas_noturnas_trabalhadas * acrecimo_hora_noturna_trabalhada
+		retorne valor_adicional_noturno
+	}
+	funcao calcaladora_so_do_horas_extras()
+	
+	{	
+		real  salario_bruto, horas_trabalhadas_mes, horas_extras_trabalhdas, hora_extra
+		escreva("              SIMULADOR DE ADICIONAL HORA EXTRA")
+	 	escreva("\n\n")
+	 	escreva("-------------------------------------------------------------\n\n")
+	 	escreva("Insira o valor do salario bruto: ")
+	 	leia(salario_bruto)
+	 	escreva("\n\n")
+	 	escreva("Insira a quantidade de horas trabalhadas no mês: ")
+	 	leia(horas_trabalhadas_mes)
+	 	escreva("\n\n")
+	 	escreva("Insira a quantidade de horas extras voce trabalhou no mes: ")
+	 	leia(horas_extras_trabalhdas)
+	 	escreva("\n\n")
+	 	hora_extra = equacao_hora_extra(salario_bruto,horas_trabalhadas_mes, horas_extras_trabalhdas)
+	 	hora_extra = m.arredondar(hora_extra, 2)
+	 	real salario_liquido
+	 	salario_liquido = salario_bruto - hora_extra
+	 	escreva("|------------------------------------------------------------|\n")
+		escreva("|			RESULTADO			     |\n")
+		escreva("|------------------------------------------------------------|\n")
+		escreva("  PROVENTOS:\n")
+	 	escreva("	Sálario bruto:			",salario_bruto,"\n\n")
+	 	escreva("  DESCONTOS:\n")
+	 	escreva("	ADICIONAL HORA EXTRA:				",hora_extra,"\n\n")
+	 	escreva(" TOTAL:\n")
+	 	escreva("	Sálario Líquido*:		",salario_liquido,"\n")
+	 	escreva("|------------------------------------------------------------|")
+	}
+	funcao real equacao_hora_extra(real salario_bruto, real horas_trabalhadas_mes,real horas_extras_trabalhdas)
+	{
+		real valor_por_hora, valor_por_hora_extra, total_salario_e_hora_extra
+		valor_por_hora = salario_bruto/horas_trabalhadas_mes
+		valor_por_hora_extra = valor_por_hora + (valor_por_hora * 0.5)
+		valor_por_hora_extra = valor_por_hora_extra * horas_extras_trabalhdas
+		retorne valor_por_hora_extra 
+	}
 }
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 22915; 
- * @DOBRAMENTO-CODIGO = [23, 50, 94, 164, 198, 284, 319, 359, 388, 394, 401, 493, 500, 612, 619, 676, 682, 689, 794];
+ * @POSICAO-CURSOR = 20070; 
+ * @DOBRAMENTO-CODIGO = [11, 25, 52, 96, 166, 202, 242, 292, 330, 370, 404, 410, 417, 493, 544, 551, 748, 754, 761, 866, 881, 900, 906, 928, 935, 942, 1008, 1036, 1068, 1078, 1109];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
