@@ -90,8 +90,9 @@ programa
 	 	}
 	 	
 		total_adicionais = periculosidade + hora_extra + noturno
-		real salario_mais_adicionais = total_adicionais + salario_bruto
 		total_adicionais = m.arredondar(total_adicionais, 2)
+		real salario_mais_adicionais = total_adicionais + salario_bruto
+		salario_mais_adicionais = m.arredondar(salario_mais_adicionais, 2)
 		
 	 	fgts = equacao_fgts(salario_mais_adicionais)
 		fgts = m.arredondar(fgts, 2)
@@ -107,14 +108,17 @@ programa
 	 	real salario_liquido, salario_adicional_periculosidade
 
 	 	total_descontos = valor_vale_transporte + inss + irrf
+	 	total_descontos = m.arredondar(total_descontos, 2)
 	 	salario_liquido = salario_bruto + total_adicionais - total_descontos
+		salario_liquido = m.arredondar(salario_liquido, 2)
+
+		limpa()
+		titulo_do_simulador_pagamento()
+		escreva("\n")
 
 
-
-
-
-
-
+		escreva("|")
+		tracinho_texto()
 		escreva("|\n")
 		escreva("|			RESULTADO			     |\n")
 		escreva("|")
@@ -124,14 +128,14 @@ programa
 	 	escreva("	Sálario bruto:			",salario_bruto,"\n")
 		escreva("	Adicional de periculosidade:	",periculosidade,"\n")
 		escreva("	Adicional noturno:		",noturno,"\n")
-		escreva("	Adicional de hora extra:		",noturno,"\n")
-		escreva("	FGTS(depósito):				",fgts,"\n\n")
-		escreva("	Total de proventos:		",total_adicionais,"\n\n")
+		escreva("	Adicional de hora extra:	",hora_extra,"\n")
+		escreva("	FGTS (depósito):		",fgts,"\n")
+		escreva("	Total de proventos:		",salario_mais_adicionais,"\n\n")
 	 	escreva("  DESCONTOS:\n")
-	 	escreva("	INSS:				",inss,"\n\n")
-	 	escreva("	IRRF:			",irrf,"\n")
+	 	escreva("	INSS:				",inss,"\n")
+	 	escreva("	IRRF:				",irrf,"\n")
 	 	escreva("	Vale transporte:		",valor_vale_transporte,"\n")
-	 	escreva("	Total de Descontos:		",total_descontos,"\n")
+	 	escreva("	Total de Descontos:		",total_descontos,"\n\n")
 	 	escreva(" TOTAL:\n")
 	 	escreva("	Sálario Líquido:		",salario_liquido,"\n")
 	 	escreva("|")
@@ -175,13 +179,8 @@ programa
 	funcao real equacao_periculosidade(real salario_bruto)
 	{	
 		real valor_periculosidade 
-
 		valor_periculosidade = salario_bruto * 0.3
-		
-
-			retorne valor_periculosidade 
-
-
+		retorne valor_periculosidade 
 	}
 	funcao real equacao_inss(real salario_bruto)
 	{	
@@ -297,7 +296,6 @@ programa
 		}enquanto(numero_ou_nao == falso)
 		retorne valor_para_verificar
 	}
-	
 	funcao real equacao_vale_transpote(real salario_bruto)
 	{
 		real valor_VT
@@ -334,7 +332,7 @@ programa
 	}
 	funcao tracinho_texto()
 	{
-		para(inteiro i = 1; i <= 60; i++)
+		para(inteiro i = 1; i <= 64; i++)
 		{
 		  escreva ("-")
 		}
@@ -345,9 +343,10 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 4321; 
+ * @POSICAO-CURSOR = 11171; 
+ * @DOBRAMENTO-CODIGO = [279, 298, 304, 310];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {salario_bruto, 225, 43, 13}-{valor_irrf, 238, 8, 10};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
